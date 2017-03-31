@@ -16,4 +16,25 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void loadTodo(int id)
+    {
+        // TODO
+        screen.showTodo("TODO");
+    }
+
+    public void checkTodo(int id)
+    {
+        // TODO
+    }
+
+    public void uncheckTodo(int id)
+    {
+        // TODO
+    }
+
+    public void deleteTodo(int id)
+    {
+        // TODO
+    }
 }

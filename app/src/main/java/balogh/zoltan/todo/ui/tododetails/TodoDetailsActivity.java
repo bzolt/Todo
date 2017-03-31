@@ -35,7 +35,8 @@ public class TodoDetailsActivity extends AppCompatActivity implements TodoDetail
     }
 
     @Override
-    public void showMessage(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public void showTodo(String todo)
+    {
+        // TODO
     }
 }

@@ -16,4 +16,16 @@ public class LoginPresenter extends Presenter<LoginScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void login(String username, String password) {
+        // TODO
+        if (true)
+        {
+            screen.loginSuccess();
+        }
+        else
+        {
+            screen.loginError("Error");
+        }
+    }
 }

@@ -1,5 +1,7 @@
 package balogh.zoltan.todo.ui.todoedit;
 
 public interface TodoEditScreen {
-    void showMessage(String text);
+    void fillTodo(String todo);
+    void editSuccess();
+    void editError(String text);
 }

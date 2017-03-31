@@ -4,6 +4,8 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
 import balogh.zoltan.todo.R;
@@ -34,8 +36,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
         todoListPresenter.detachScreen();
     }
 
+
     @Override
-    public void showMessage(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public void showTodoList(List<String> todos) {
+        // TODO
     }
 }

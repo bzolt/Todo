@@ -1,5 +1,7 @@
 package balogh.zoltan.todo.ui.todolist;
 
+import java.util.List;
+
 public interface TodoListScreen {
-    void showMessage(String text);
+    void showTodoList(List<String> todos);
 }

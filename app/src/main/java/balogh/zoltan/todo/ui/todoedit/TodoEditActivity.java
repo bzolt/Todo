@@ -35,7 +35,17 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
     }
 
     @Override
-    public void showMessage(String text) {
-        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
+    public void fillTodo(String todo) {
+        // TODO
+    }
+
+    @Override
+    public void editSuccess() {
+        // TODO
+    }
+
+    @Override
+    public void editError(String text) {
+        // TODO
     }
 }

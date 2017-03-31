@@ -1,5 +1,6 @@
 package balogh.zoltan.todo.ui.login;
 
 public interface LoginScreen {
-    void showMessage(String text);
+    void loginSuccess();
+    void loginError(String text);
 }

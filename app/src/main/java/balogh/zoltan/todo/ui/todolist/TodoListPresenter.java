@@ -16,4 +16,24 @@ public class TodoListPresenter extends Presenter<TodoListScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void loadTodoList()
+    {
+        // TODO
+    }
+
+    public void checkTodo(int id)
+    {
+        // TODO
+    }
+
+    public void uncheckTodo(int id)
+    {
+        // TODO
+    }
+
+    public void deleteTodo(int id)
+    {
+        // TODO
+    }
 }

@@ -16,4 +16,14 @@ public class TodoEditPresenter extends Presenter<TodoEditScreen> {
     public void detachScreen() {
         super.detachScreen();
     }
+
+    public void saveTodo(String todo)
+    {
+
+    }
+
+    public void loadTodo(int id)
+    {
+
+    }
 }
