@@ -1,14 +1,14 @@
-package balogh.zoltan.todo.ui.main;
+package balogh.zoltan.todo.ui.login;
 
 import balogh.zoltan.todo.ui.Presenter;
 
-public class MainPresenter extends Presenter<MainScreen> {
+public class LoginPresenter extends Presenter<LoginScreen> {
 
-    public MainPresenter() {
+    public LoginPresenter() {
     }
 
     @Override
-    public void attachScreen(MainScreen screen) {
+    public void attachScreen(LoginScreen screen) {
         super.attachScreen(screen);
     }
 

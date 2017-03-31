@@ -1,7 +1,7 @@
-package balogh.zoltan.todo.ui.main;
+package balogh.zoltan.todo.ui.tododetails;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
 import javax.inject.Inject;
@@ -9,10 +9,10 @@ import javax.inject.Inject;
 import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
 
-public class MainActivity extends AppCompatActivity implements MainScreen {
+public class TodoDetailsActivity extends AppCompatActivity implements TodoDetailsScreen {
 
     @Inject
-    MainPresenter mainPresenter;
+    TodoDetailsPresenter todoDetailsPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -25,13 +25,13 @@ public class MainActivity extends AppCompatActivity implements MainScreen {
     @Override
     protected void onStart() {
         super.onStart();
-        mainPresenter.attachScreen(this);
+        todoDetailsPresenter.attachScreen(this);
     }
 
     @Override
     protected void onStop() {
         super.onStop();
-        mainPresenter.detachScreen();
+        todoDetailsPresenter.detachScreen();
     }
 
     @Override
