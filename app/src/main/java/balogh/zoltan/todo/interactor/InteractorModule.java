@@ -1,5 +1,7 @@
 package balogh.zoltan.todo.interactor;
 
+import balogh.zoltan.todo.interactor.todo.TodoInteractor;
+import balogh.zoltan.todo.interactor.user.UserInteractor;
 import dagger.Module;
 import dagger.Provides;
 

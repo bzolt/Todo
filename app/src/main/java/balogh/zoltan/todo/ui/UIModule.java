@@ -2,6 +2,8 @@ package balogh.zoltan.todo.ui;
 
 import android.content.Context;
 
+import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 import javax.inject.Singleton;
 
@@ -11,6 +13,7 @@ import balogh.zoltan.todo.ui.todoedit.TodoEditPresenter;
 import balogh.zoltan.todo.ui.todolist.TodoListPresenter;
 import dagger.Module;
 import dagger.Provides;
+import de.greenrobot.event.EventBus;
 
 @Module
 public class UIModule {
@@ -47,5 +50,17 @@ public class UIModule {
     @Singleton
     public TodoEditPresenter provideTodoEditPresenter() {
         return new TodoEditPresenter();
+    }
+
+    @Provides
+    @Singleton
+    public EventBus provideEventBus() {
+        return EventBus.getDefault();
+    }
+
+    @Provides
+    @Singleton
+    public Executor provideExecutor() {
+        return Executors.newFixedThreadPool(1);
     }
 }

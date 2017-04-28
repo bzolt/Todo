@@ -1,4 +1,4 @@
-package balogh.zoltan.todo.interactor;
+package balogh.zoltan.todo.interactor.user;
 
 import javax.inject.Inject;
 

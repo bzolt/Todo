@@ -3,8 +3,8 @@ package balogh.zoltan.todo;
 import javax.inject.Singleton;
 
 import balogh.zoltan.todo.interactor.InteractorModule;
-import balogh.zoltan.todo.interactor.TodoInteractor;
-import balogh.zoltan.todo.interactor.UserInteractor;
+import balogh.zoltan.todo.interactor.todo.TodoInteractor;
+import balogh.zoltan.todo.interactor.user.UserInteractor;
 import balogh.zoltan.todo.repository.RepositoryModule;
 import balogh.zoltan.todo.ui.UIModule;
 import balogh.zoltan.todo.ui.login.LoginActivity;
