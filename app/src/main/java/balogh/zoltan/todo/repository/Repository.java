@@ -25,9 +25,7 @@ interface Repository {
 
     void saveTodo(Todo todo);
 
-    void deleteTodo(long id);
-
-    void setTodoDone(long id, boolean isDone);
+    void deleteTodo(Todo todo);
 
     boolean isInDB(Todo todo);
 }
