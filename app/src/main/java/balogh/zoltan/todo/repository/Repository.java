@@ -7,7 +7,7 @@ import java.util.List;
 import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.model.User;
 
-interface Repository {
+public interface Repository {
 
     void open(Context context);
 
