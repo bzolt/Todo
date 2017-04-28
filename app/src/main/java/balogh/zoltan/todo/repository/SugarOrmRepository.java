@@ -55,9 +55,4 @@ public class SugarOrmRepository implements Repository {
     public void deleteTodo(Todo todo) {
         SugarRecord.delete(todo);
     }
-
-    @Override
-    public boolean isInDB(Todo todo) {
-        return SugarRecord.findById(Todo.class, todo.getId()) != null;
-    }
 }

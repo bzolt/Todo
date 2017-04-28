@@ -26,6 +26,4 @@ public interface Repository {
     void saveTodo(Todo todo);
 
     void deleteTodo(Todo todo);
-
-    boolean isInDB(Todo todo);
 }

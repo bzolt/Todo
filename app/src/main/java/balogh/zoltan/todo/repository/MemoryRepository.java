@@ -73,9 +73,4 @@ public class MemoryRepository implements Repository {
     public void deleteTodo(Todo todo) {
         todos.remove(todo.getId());
     }
-
-    @Override
-    public boolean isInDB(Todo todo) {
-        return todos.containsKey(todo.getId());
-    }
 }
