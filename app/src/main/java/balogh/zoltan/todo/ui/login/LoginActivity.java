@@ -1,8 +1,7 @@
 package balogh.zoltan.todo.ui.login;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.widget.Toast;
+import android.support.v7.app.AppCompatActivity;
 
 import javax.inject.Inject;
 
@@ -35,12 +34,12 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen {
     }
 
     @Override
-    public void loginSuccess() {
+    public void showSuccess() {
         // TODO
     }
 
     @Override
-    public void loginError(String text) {
+    public void showError(String text) {
         // TODO
     }
 }

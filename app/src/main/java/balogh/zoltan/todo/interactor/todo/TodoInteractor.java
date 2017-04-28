@@ -23,7 +23,7 @@ public class TodoInteractor {
         TodoApplication.injector.inject(this);
     }
 
-    void getTodo(long id) {
+    public void getTodo(long id) {
         GetTodoEvent event = new GetTodoEvent();
         try {
             Todo todo = repository.getTodo(id);
@@ -35,7 +35,7 @@ public class TodoInteractor {
         }
     }
 
-    void getTodos() {
+    public void getTodos() {
         GetTodosEvent event = new GetTodosEvent();
         try {
             List<Todo> todos = repository.getTodos();
@@ -47,7 +47,7 @@ public class TodoInteractor {
         }
     }
 
-    void saveTodo(Todo todo) {
+    public void saveTodo(Todo todo) {
         SaveTodoEvent event = new SaveTodoEvent();
         try {
             repository.saveTodo(todo);
@@ -58,7 +58,7 @@ public class TodoInteractor {
         }
     }
 
-    void deleteTodo(Todo todo) {
+    public void deleteTodo(Todo todo) {
         DeleteTodoEvent event = new DeleteTodoEvent();
         try {
             repository.deleteTodo(todo);

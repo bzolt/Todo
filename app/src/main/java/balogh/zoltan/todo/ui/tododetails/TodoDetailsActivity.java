@@ -1,13 +1,14 @@
 package balogh.zoltan.todo.ui.tododetails;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
+import balogh.zoltan.todo.model.Todo;
 
 public class TodoDetailsActivity extends AppCompatActivity implements TodoDetailsScreen {
 
@@ -35,8 +36,18 @@ public class TodoDetailsActivity extends AppCompatActivity implements TodoDetail
     }
 
     @Override
-    public void showTodo(String todo)
+    public void showTodo(Todo todo)
     {
         // TODO
+    }
+
+    @Override
+    public void showSucces() {
+
+    }
+
+    @Override
+    public void showError(String text) {
+
     }
 }

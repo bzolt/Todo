@@ -1,7 +1,11 @@
 package balogh.zoltan.todo.ui.todoedit;
 
+import balogh.zoltan.todo.model.Todo;
+
 public interface TodoEditScreen {
-    void fillTodo(String todo);
-    void editSuccess();
-    void editError(String text);
+    void fillTodo(Todo todo);
+
+    void showSuccess();
+
+    void showError(String text);
 }

@@ -2,12 +2,12 @@ package balogh.zoltan.todo.ui.todoedit;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import javax.inject.Inject;
 
 import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
+import balogh.zoltan.todo.model.Todo;
 
 public class TodoEditActivity extends AppCompatActivity implements TodoEditScreen {
 
@@ -35,17 +35,17 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
     }
 
     @Override
-    public void fillTodo(String todo) {
+    public void fillTodo(Todo todo) {
         // TODO
     }
 
     @Override
-    public void editSuccess() {
+    public void showSuccess() {
         // TODO
     }
 
     @Override
-    public void editError(String text) {
+    public void showError(String text) {
         // TODO
     }
 }

@@ -2,7 +2,6 @@ package balogh.zoltan.todo.ui.todolist;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.widget.Toast;
 
 import java.util.List;
 
@@ -10,6 +9,7 @@ import javax.inject.Inject;
 
 import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
+import balogh.zoltan.todo.model.Todo;
 
 public class TodoListActivity extends AppCompatActivity implements TodoListScreen {
 
@@ -38,7 +38,17 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
 
     @Override
-    public void showTodoList(List<String> todos) {
+    public void showTodoList(List<Todo> todos) {
+        // TODO
+    }
+
+    @Override
+    public void showSucces() {
+        // TODO
+    }
+
+    @Override
+    public void showError(String text) {
         // TODO
     }
 }
