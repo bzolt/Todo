@@ -22,20 +22,34 @@ android {
 }
 
 dependencies {
-    compile fileTree(dir: 'libs', include: ['*.jar'])
+    compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'
     })
     compile 'com.android.support:appcompat-v7:25.1.1'
     testCompile 'junit:junit:4.12'
-
     // Dagger 2 and Compiler
-    compile "com.google.dagger:dagger-compiler:2.0.1"
+    compile 'com.google.dagger:dagger-compiler:2.0.1'
     compile 'com.google.dagger:dagger:2.0.1'
     apt "com.google.dagger:dagger-compiler:2.0.1"
     // Required for @Generated annotation (missing in Java <= 1.6; therefore, Android)
     provided 'javax.annotation:jsr250-api:1.0'
-
     compile 'com.github.satyan:sugar:1.4'
     compile 'de.greenrobot:eventbus:2.4.0'
+
+    //Retrofit and OkHttp
+    compile 'com.squareup.retrofit2:retrofit:2.0.0-beta3'
+    compile 'com.squareup.retrofit2:converter-gson:2.0.0-beta3'
+    compile 'com.squareup.okhttp3:okhttp:3.0.1'
+    compile 'com.squareup.okhttp3:logging-interceptor:3.0.1'
+    compile 'com.google.code.gson:gson:2.4'
+
+    compile group: 'org.apache.oltu.oauth2', name: 'org.apache.oltu.oauth2.common', version: '1.0.2'
+    compile group: 'org.apache.oltu.oauth2', name: 'org.apache.oltu.oauth2.client', version: '1.0.2'
+
+    compile group: 'io.swagger', name: 'swagger-annotations', version: '1.5.13'
+
+    //JVM Test
+    //JUnit
+    testCompile 'junit:junit:4.12'
 }
