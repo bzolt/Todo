@@ -5,6 +5,7 @@ import javax.inject.Singleton;
 import balogh.zoltan.todo.interactor.InteractorModule;
 import balogh.zoltan.todo.interactor.todo.TodoInteractor;
 import balogh.zoltan.todo.interactor.user.UserInteractor;
+import balogh.zoltan.todo.network.NetworkModule;
 import balogh.zoltan.todo.repository.RepositoryModule;
 import balogh.zoltan.todo.ui.UIModule;
 import balogh.zoltan.todo.ui.login.LoginActivity;
@@ -18,7 +19,7 @@ import balogh.zoltan.todo.ui.todolist.TodoListPresenter;
 import dagger.Component;
 
 @Singleton
-@Component(modules = {UIModule.class, RepositoryModule.class, InteractorModule.class})
+@Component(modules = {UIModule.class, RepositoryModule.class, InteractorModule.class, NetworkModule.class})
 public interface TodoApplicationComponent {
     void inject(LoginActivity loginActivity);
 

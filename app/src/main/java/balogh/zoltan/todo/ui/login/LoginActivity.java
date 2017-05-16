@@ -25,6 +25,7 @@ public class LoginActivity extends AppCompatActivity implements LoginScreen {
     protected void onStart() {
         super.onStart();
         loginPresenter.attachScreen(this);
+        loginPresenter.login("user", "user", this);
     }
 
     @Override

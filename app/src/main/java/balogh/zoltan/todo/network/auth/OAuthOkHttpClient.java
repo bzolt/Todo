@@ -55,7 +55,7 @@ public class OAuthOkHttpClient implements HttpClient {
             return OAuthClientResponseFactory.createCustomResponse(
                     response.body().string(),
                     response.body().contentType().toString(),
-                    response.code(),
+                    response.code(), null,
                     responseClass);
         } catch (IOException e) {
             throw new OAuthSystemException(e);

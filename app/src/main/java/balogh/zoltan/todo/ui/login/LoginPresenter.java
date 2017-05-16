@@ -1,5 +1,7 @@
 package balogh.zoltan.todo.ui.login;
 
+import android.app.Activity;
+
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
@@ -38,7 +40,7 @@ public class LoginPresenter extends Presenter<LoginScreen> {
         super.detachScreen();
     }
 
-    public void login(final String username, final String password) {
+    public void login(final String username, final String password, final Activity thisActivity) {
         // TODO hálózati kommunikáció
         // TODO
         if (true) {
