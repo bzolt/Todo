@@ -22,7 +22,7 @@ public class TodoMock {
 
         Todo todo1 = new Todo(2L, "Todo1", "Todo todo todo", false);
         Todo todo2 = new Todo(3L, "Todo2", "Todo todo todo", false);
-        Todo todo3 = new Todo(3L, "Todo3", "Todo todo todo", true);
+        Todo todo3 = new Todo(4L, "Todo3", "Todo todo todo", true);
 
         todos.put(todo1.getId(), todo1);
         todos.put(todo2.getId(), todo2);
@@ -33,14 +33,14 @@ public class TodoMock {
         Headers headers = request.headers();
 
 
-        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "todo") && request.method().equals("Get")) {
+        if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "todo") && request.method().equals("GET")) {
             responseString = GsonHelper.getGson().toJson(todos.values().toArray());
             responseCode = 200;
-        } else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "todo") && request.method().equals("Post")) {
+        } else if (uri.getPath().equals(NetworkConfig.ENDPOINT_PREFIX + "todo") && request.method().equals("POST")) {
             responseString = "OK";
             responseCode = 200;
-        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("Post")) {
-            int i = uri.getPath().lastIndexOf("/");
+        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("GET")) {
+            int i = uri.getPath().lastIndexOf("/") + 1;
             long id = Long.parseLong(uri.getPath().substring(i));
             Todo ret = todos.get(id);
             if (ret != null) {
@@ -50,10 +50,10 @@ public class TodoMock {
                 responseString = "NOT FOUND";
                 responseCode = 404;
             }
-        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("Put")) {
+        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("PUT")) {
             responseString = "OK";
             responseCode = 200;
-        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("Delete")) {
+        } else if (uri.getPath().matches("\\" + NetworkConfig.ENDPOINT_PREFIX + "todo\\/" + "\\d+") && request.method().equals("DELETE")) {
             responseString = "OK";
             responseCode = 200;
         } else {

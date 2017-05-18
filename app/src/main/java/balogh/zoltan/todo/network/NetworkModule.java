@@ -20,7 +20,6 @@ public class NetworkModule {
         return new OkHttpClient().newBuilder();
     }
 
-
     @Provides
     @Singleton
     public OkHttpClient provideOkHttpClient(OkHttpClient.Builder builder) {

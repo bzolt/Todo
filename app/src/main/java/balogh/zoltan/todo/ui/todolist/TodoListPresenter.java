@@ -1,13 +1,18 @@
 package balogh.zoltan.todo.ui.todolist;
 
+import android.accounts.NetworkErrorException;
+
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
+import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.interactor.todo.TodoInteractor;
 import balogh.zoltan.todo.interactor.todo.events.DeleteTodoEvent;
 import balogh.zoltan.todo.interactor.todo.events.GetTodosEvent;
 import balogh.zoltan.todo.interactor.todo.events.SaveTodoEvent;
+import balogh.zoltan.todo.interactor.user.UserInteractor;
+import balogh.zoltan.todo.interactor.user.events.LogoutEvent;
 import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.ui.Presenter;
 import de.greenrobot.event.EventBus;
@@ -17,6 +22,9 @@ import static balogh.zoltan.todo.TodoApplication.injector;
 public class TodoListPresenter extends Presenter<TodoListScreen> {
     @Inject
     TodoInteractor todoInteractor;
+
+    @Inject
+    UserInteractor userInteractor;
 
     @Inject
     Executor executor;
@@ -49,18 +57,8 @@ public class TodoListPresenter extends Presenter<TodoListScreen> {
         });
     }
 
-    public void checkTodo(final Todo todo) {
-        todo.setDone(true);
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                todoInteractor.saveTodo(todo);
-            }
-        });
-    }
-
-    public void uncheckTodo(final Todo todo) {
-        todo.setDone(false);
+    public void checkTodo(final Todo todo, final boolean isDone) {
+        todo.setDone(isDone);
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -78,11 +76,19 @@ public class TodoListPresenter extends Presenter<TodoListScreen> {
         });
     }
 
+    public void logout() {
+        userInteractor.logout();
+    }
+
     public void onEventMainThread(GetTodosEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not load todos from database.");
+                if (event.getThrowable() instanceof NetworkErrorException) {
+                    screen.showError(R.string.network_error);
+                } else {
+                    screen.showError(R.string.db_error);
+                }
             }
         } else {
             if (screen != null) {
@@ -95,11 +101,15 @@ public class TodoListPresenter extends Presenter<TodoListScreen> {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not delete todo from database.");
+                if (event.getThrowable() instanceof NetworkErrorException) {
+                    screen.showError(R.string.network_error);
+                } else {
+                    screen.showError(R.string.db_error);
+                }
             }
         } else {
             if (screen != null) {
-                screen.showSucces();
+                screen.showDelete(event.getTodo());
             }
         }
     }
@@ -108,11 +118,29 @@ public class TodoListPresenter extends Presenter<TodoListScreen> {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not save todo to database.");
+                if (event.getThrowable() instanceof NetworkErrorException) {
+                    screen.showError(R.string.network_error);
+                } else {
+                    screen.showError(R.string.db_error);
+                }
+
             }
         } else {
             if (screen != null) {
                 screen.showSucces();
+            }
+        }
+    }
+
+    public void onEventMainThread(LogoutEvent event) {
+        if (event.getThrowable() != null) {
+            event.getThrowable().printStackTrace();
+            if (screen != null) {
+                screen.showError(R.string.logout_fail);
+            }
+        } else {
+            if (screen != null) {
+                screen.logoutSuccess();
             }
         }
     }

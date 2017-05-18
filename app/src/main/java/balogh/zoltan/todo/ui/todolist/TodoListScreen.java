@@ -9,5 +9,9 @@ public interface TodoListScreen {
 
     void showSucces();
 
-    void showError(String text);
+    void showDelete(Todo todo);
+
+    void showError(int code);
+
+    void logoutSuccess();
 }

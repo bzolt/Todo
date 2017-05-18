@@ -1,13 +1,10 @@
-package balogh.zoltan.todo.interactor.todo.events;
+package balogh.zoltan.todo.interactor.user.events;
 
-import balogh.zoltan.todo.model.Todo;
-
-public class DeleteTodoEvent {
+public class LogoutEvent {
     private int code;
-    private Todo todo;
     private Throwable throwable;
 
-    public DeleteTodoEvent() {
+    public LogoutEvent() {
     }
 
     public int getCode() {
@@ -16,14 +13,6 @@ public class DeleteTodoEvent {
 
     public void setCode(int code) {
         this.code = code;
-    }
-
-    public Todo getTodo() {
-        return todo;
-    }
-
-    public void setTodo(Todo todo) {
-        this.todo = todo;
     }
 
     public Throwable getThrowable() {

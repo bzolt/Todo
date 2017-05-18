@@ -55,4 +55,10 @@ public class SugarOrmRepository implements Repository {
     public void deleteTodo(Todo todo) {
         SugarRecord.delete(todo);
     }
+
+    @Override
+    public void deleteAll() {
+        SugarRecord.deleteAll(Todo.class);
+        SugarRecord.deleteAll(User.class);
+    }
 }

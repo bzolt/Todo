@@ -1,3 +1,20 @@
 <resources>
-    <string name="app_name">Todo</string>
+    <string name="app_name">Teendők</string>
+    <string name="username">Felhasználónév</string>
+    <string name="password">Jelszó</string>
+    <string name="login">Bejelentkezés</string>
+    <string name="fill_fields">Tölts ki minden mezőt!</string>
+    <string name="db_error">Adatbázis hiba!</string>
+    <string name="network_error">Hálózati hiba!</string>
+    <string name="wrong_credentials">Hibás felhasználónév vagy jelszó!</string>
+    <string name="save">Mentés</string>
+    <string name="logout">Kijelentkezés</string>
+    <string name="check">Késznek jelöl</string>
+    <string name="uncheck">Mégse jelöl késznek</string>
+    <string name="edit_todo">Teendő szerkesztése</string>
+    <string name="new_todo">Új teendő</string>
+    <string name="title">Cím</string>
+    <string name="content">Leírás</string>
+    <string name="save_success">Sikeres mentés</string>
+    <string name="logout_fail">Sikertelen kijelentkezés</string>
 </resources>

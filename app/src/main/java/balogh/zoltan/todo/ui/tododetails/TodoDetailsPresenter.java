@@ -1,13 +1,17 @@
 package balogh.zoltan.todo.ui.tododetails;
 
+import android.accounts.NetworkErrorException;
+
 import java.util.concurrent.Executor;
 
 import javax.inject.Inject;
 
+import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.interactor.todo.TodoInteractor;
-import balogh.zoltan.todo.interactor.todo.events.DeleteTodoEvent;
 import balogh.zoltan.todo.interactor.todo.events.GetTodoEvent;
 import balogh.zoltan.todo.interactor.todo.events.SaveTodoEvent;
+import balogh.zoltan.todo.interactor.user.UserInteractor;
+import balogh.zoltan.todo.interactor.user.events.LogoutEvent;
 import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.ui.Presenter;
 import de.greenrobot.event.EventBus;
@@ -17,6 +21,9 @@ import static balogh.zoltan.todo.TodoApplication.injector;
 public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
     @Inject
     TodoInteractor todoInteractor;
+
+    @Inject
+    UserInteractor userInteractor;
 
     @Inject
     Executor executor;
@@ -40,7 +47,7 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
         super.detachScreen();
     }
 
-    public void loadTodoList(final long id) {
+    public void loadTodo(final long id) {
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -49,8 +56,8 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
         });
     }
 
-    public void checkTodo(final Todo todo) {
-        todo.setDone(true);
+    public void checkTodo(final Todo todo, final boolean isDone) {
+        todo.setDone(isDone);
         executor.execute(new Runnable() {
             @Override
             public void run() {
@@ -59,30 +66,19 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
         });
     }
 
-    public void uncheckTodo(final Todo todo) {
-        todo.setDone(false);
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                todoInteractor.saveTodo(todo);
-            }
-        });
-    }
-
-    public void deleteTodo(final Todo todo) {
-        executor.execute(new Runnable() {
-            @Override
-            public void run() {
-                todoInteractor.deleteTodo(todo);
-            }
-        });
+    public void logout() {
+        userInteractor.logout();
     }
 
     public void onEventMainThread(GetTodoEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not load todos from database.");
+                if (event.getThrowable() instanceof NetworkErrorException) {
+                    screen.showError(R.string.network_error);
+                } else {
+                    screen.showError(R.string.db_error);
+                }
             }
         } else {
             if (screen != null) {
@@ -91,11 +87,15 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
         }
     }
 
-    public void onEventMainThread(DeleteTodoEvent event) {
+    public void onEventMainThread(SaveTodoEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not delete todo from database.");
+                if (event.getThrowable() instanceof NetworkErrorException) {
+                    screen.showError(R.string.network_error);
+                } else {
+                    screen.showError(R.string.db_error);
+                }
             }
         } else {
             if (screen != null) {
@@ -104,15 +104,15 @@ public class TodoDetailsPresenter extends Presenter<TodoDetailsScreen> {
         }
     }
 
-    public void onEventMainThread(SaveTodoEvent event) {
+    public void onEventMainThread(LogoutEvent event) {
         if (event.getThrowable() != null) {
             event.getThrowable().printStackTrace();
             if (screen != null) {
-                screen.showError("Could not save todo to database.");
+                screen.showError(R.string.logout_fail);
             }
         } else {
             if (screen != null) {
-                screen.showSucces();
+                screen.logoutSuccess();
             }
         }
     }

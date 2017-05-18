@@ -26,4 +26,6 @@ public interface Repository {
     void saveTodo(Todo todo);
 
     void deleteTodo(Todo todo);
+
+    void deleteAll();
 }

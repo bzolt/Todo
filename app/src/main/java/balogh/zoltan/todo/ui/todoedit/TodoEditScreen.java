@@ -7,5 +7,7 @@ public interface TodoEditScreen {
 
     void showSuccess();
 
-    void showError(String text);
+    void showError(int code);
+
+    void logoutSuccess();
 }
