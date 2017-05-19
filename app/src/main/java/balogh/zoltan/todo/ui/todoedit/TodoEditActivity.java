@@ -4,11 +4,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
@@ -16,6 +21,7 @@ import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
 import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.ui.login.LoginActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class TodoEditActivity extends AppCompatActivity implements TodoEditScreen {
 
@@ -23,13 +29,18 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
     TodoEditPresenter todoEditPresenter;
 
     private Todo todo;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_edit);
 
         TodoApplication.injector.inject(this);
+        // Obtain the shared Tracker instance.
+        TodoApplication application = (TodoApplication) getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -47,6 +58,14 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
         } else {
             ab.setTitle(R.string.new_todo);
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("TodoEditActivity", "Setting screen name: TodoEditActivity");
+        mTracker.setScreenName("TodoEditActivity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -93,6 +112,10 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.save:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Save")
+                        .build());
                 EditText title = (EditText) findViewById(R.id.title);
                 EditText content = (EditText) findViewById(R.id.content);
                 if (title.length() == 0 || content.length() == 0) {
@@ -107,6 +130,10 @@ public class TodoEditActivity extends AppCompatActivity implements TodoEditScree
                 }
                 break;
             case R.id.logout:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Logout")
+                        .build());
                 todoEditPresenter.logout();
                 break;
         }

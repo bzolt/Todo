@@ -5,11 +5,16 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import javax.inject.Inject;
 
@@ -17,6 +22,7 @@ import balogh.zoltan.todo.R;
 import balogh.zoltan.todo.TodoApplication;
 import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.ui.login.LoginActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class TodoDetailsActivity extends AppCompatActivity implements TodoDetailsScreen {
 
@@ -24,13 +30,18 @@ public class TodoDetailsActivity extends AppCompatActivity implements TodoDetail
     TodoDetailsPresenter todoDetailsPresenter;
     MenuItem check;
     private Todo todo;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_details);
 
         TodoApplication.injector.inject(this);
+        // Obtain the shared Tracker instance.
+        TodoApplication application = (TodoApplication) getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -39,6 +50,14 @@ public class TodoDetailsActivity extends AppCompatActivity implements TodoDetail
         todoDetailsPresenter.attachScreen(this);
         Intent intent = getIntent();
         todoDetailsPresenter.loadTodo(intent.getLongExtra("id", 0));
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("TodoDetailsActivity", "Setting screen name: TodoDetailsActivity");
+        mTracker.setScreenName("TodoDetailsActivity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -108,9 +127,17 @@ public class TodoDetailsActivity extends AppCompatActivity implements TodoDetail
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.check:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Check")
+                        .build());
                 checkTodo(todo, !todo.isDone());
                 break;
             case R.id.logout:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Logout")
+                        .build());
                 todoDetailsPresenter.logout();
                 break;
         }

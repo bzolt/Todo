@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -11,6 +12,10 @@ import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.GridView;
 import android.widget.Toast;
+
+import com.crashlytics.android.Crashlytics;
+import com.google.android.gms.analytics.HitBuilders;
+import com.google.android.gms.analytics.Tracker;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,6 +28,7 @@ import balogh.zoltan.todo.model.Todo;
 import balogh.zoltan.todo.ui.login.LoginActivity;
 import balogh.zoltan.todo.ui.tododetails.TodoDetailsActivity;
 import balogh.zoltan.todo.ui.todoedit.TodoEditActivity;
+import io.fabric.sdk.android.Fabric;
 
 public class TodoListActivity extends AppCompatActivity implements TodoListScreen {
 
@@ -31,10 +37,12 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
     private List<Todo> todos = new ArrayList<Todo>();
     private TodoAdapter adapter;
+    private Tracker mTracker;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         setContentView(R.layout.activity_list);
 
         FloatingActionButton newTodo = (FloatingActionButton) findViewById(R.id.newFab);
@@ -45,6 +53,9 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
         gridview.setAdapter(adapter);
 
         TodoApplication.injector.inject(this);
+        // Obtain the shared Tracker instance.
+        TodoApplication application = (TodoApplication) getApplication();
+        mTracker = application.getDefaultTracker();
     }
 
     @Override
@@ -52,6 +63,14 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
         super.onStart();
         todoListPresenter.attachScreen(this);
         todoListPresenter.loadTodoList();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Log.i("TodoListActivity", "Setting screen name: TodoListActivity");
+        mTracker.setScreenName("TodoListActivity");
+        mTracker.send(new HitBuilders.ScreenViewBuilder().build());
     }
 
     @Override
@@ -123,6 +142,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.logout:
+                mTracker.send(new HitBuilders.EventBuilder()
+                        .setCategory("Action")
+                        .setAction("Logout")
+                        .build());
                 todoListPresenter.logout();
                 break;
         }
@@ -134,6 +157,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
         @Override
         public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Check")
+                    .build());
             Todo todo = (Todo) buttonView.getTag();
             checkTodo(todo, isChecked);
         }
@@ -143,6 +170,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
         @Override
         public void onClick(View v) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Details")
+                    .build());
             todoDetails((Long) v.getTag());
         }
     }
@@ -151,6 +182,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
         @Override
         public void onClick(View v) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Edit")
+                    .build());
             todoEdit((Long) v.getTag());
         }
     }
@@ -159,6 +194,10 @@ public class TodoListActivity extends AppCompatActivity implements TodoListScree
 
         @Override
         public void onClick(View v) {
+            mTracker.send(new HitBuilders.EventBuilder()
+                    .setCategory("Action")
+                    .setAction("Delete")
+                    .build());
             deleteTodo((Todo) v.getTag());
         }
     }

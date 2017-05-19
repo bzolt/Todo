@@ -3,6 +3,7 @@
     package="balogh.zoltan.todo">
 
     <uses-permission android:name="android.permission.INTERNET"></uses-permission>
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
 
     <application
         android:name=".TodoApplication"
@@ -24,6 +25,9 @@
         <meta-data
             android:name="DOMAIN_PACKAGE_NAME"
             android:value="balogh.zoltan.todo.model" />
+        <meta-data
+            android:name="io.fabric.ApiKey"
+            android:value="f9c52e6dcef19baf68beba8ce5a768451fd82d59" />
 
         <activity
             android:name=".ui.login.LoginActivity"
